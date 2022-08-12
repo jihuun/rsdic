@@ -6,17 +6,13 @@ use select::predicate::{Attr, Class, Name, Predicate};
 fn main() {
     let args: Vec<String> = env::args().collect();
     let input_word = &args[1];
-    let mut requst_url = String::from("http://small.dic.daum.net/search.do?q=");
-    requst_url.push_str(input_word);
+    let mut request_url = String::from("http://small.dic.daum.net/search.do?q=");
+    request_url.push_str(input_word);
     
-    let client = reqwest::blocking::Client::new();
-    let mut res = client.get(&requst_url).send().unwrap();
-    if res.status() != 200 {
-        println!("Failed, Url:{}, Status code:{}", requst_url, res.status());
-    }
-
-    let mut body  = String::new();
-    res.read_to_string(&mut body).unwrap();
+    let body: String = reqwest::blocking::get(&request_url)
+        .unwrap()
+        .text()
+        .unwrap();
 
     let document = Document::from(body.as_str());
     for node in document

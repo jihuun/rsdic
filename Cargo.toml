@@ -1,6 +1,6 @@
 [package]
 name = "rsdic"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Ji-Hun Kim <jihuun.k@gmail.com>"]
 edition = "2018"
 
